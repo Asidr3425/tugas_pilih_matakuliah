@@ -58,12 +58,6 @@ test/widget_test.dart              Full-flow and empty-state tests
 - **Unidirectional flow:** widgets call `toggle()` on the ViewModel, it notifies listeners, and `ListenableBuilder` rebuilds the screens. Widgets only present state.
 - **No extra packages:** only the Flutter SDK is used. There is no Provider, routing package, database, or API.
 
-## Design
-
-The look follows the "Kurasi Academic Minimal" design system: warm tonal surfaces, a muted sage primary color, soft 16px cards, and very few outlines. Selection is shown with an icon and a label as well as color. All styling lives in `lib/theme/app_theme.dart`.
-
-The design fonts (Epilogue and Plus Jakarta Sans) are not bundled, so the app uses the device font by default. To enable them, put the TTF files in `assets/fonts/` and uncomment the `fonts` block in `pubspec.yaml`.
-
 ## Scope
 
 Kept intentionally small. Not included: filter or search, database, API, authentication, dashboards, analytics, and a success page.
