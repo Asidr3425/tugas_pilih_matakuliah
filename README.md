@@ -1,17 +1,69 @@
-# tugas_pilih_matakuliah
+# KURASI: Pilih Mata Kuliah
 
-A new Flutter project.
+A small Flutter app for choosing semester courses. Built as a student assignment to practice `Card`, `ListView`, `ListTile`, and `ListView.builder`.
 
-## Getting Started
+> Courses, lecturers, and schedules are fictional. This is not an official university KRS system.
 
-This project is a starting point for a Flutter application.
+## Flow
 
-A few resources to get you started if this is your first Flutter project:
+**Katalog → Detail → Ambil → Mata Kuliah Saya → Simpan**
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+1. **Catalog:** a Semester 5 list of six Informatics courses. Each card shows the icon, code, name, SKS, lecturer, schedule, type, and one action: "Ambil".
+2. **Detail:** tap a card to open a bottom sheet with the room and a short description.
+3. **Select:** "Ambil" becomes "Diambil" with a check icon and a tinted card. Tap again to remove the course.
+4. **Review:** "Mata Kuliah Saya" lists the selected courses with a total such as "2 Mata Kuliah · 6 SKS". With nothing selected, it shows an empty message and "Tinjau & Simpan" is disabled.
+5. **Save:** "Tinjau & Simpan" opens a confirmation dialog ("Batal" / "Simpan"), then a snackbar says "Pilihan tersimpan".
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Saving only confirms the choice. Nothing is persisted, so the selection resets when the app restarts.
+
+## Run
+
+Requires Flutter 3.27 or newer (Dart 3.6+).
+
+```bash
+flutter pub get
+flutter run
+```
+
+Other checks:
+
+```bash
+flutter analyze
+flutter test
+```
+
+## Project structure
+
+```
+lib/
+  main.dart                        App entry, creates the ViewModel
+  models/course.dart               Course and CourseType
+  data/course_repository.dart      Single source of course data
+  viewmodels/selection_viewmodel.dart
+                                   Selection state (ChangeNotifier)
+  screens/
+    catalog_screen.dart            Header, course list, detail sheet
+    my_courses_screen.dart         Review list, save dialog, snackbar
+  widgets/
+    course_card.dart               Card + ListTile for one course
+    course_detail_sheet.dart       Bottom sheet content
+    course_parts.dart              Shared icon box, pill, info row
+  theme/app_theme.dart             Colors, text styles, component themes
+test/widget_test.dart              Full-flow and empty-state tests
+```
+
+## How it works
+
+- **One source of truth:** `CourseRepository` holds the course list and `SelectionViewModel` holds the selected course codes. The selected list, count, and total SKS are calculated from that state, never stored separately.
+- **Unidirectional flow:** widgets call `toggle()` on the ViewModel, it notifies listeners, and `ListenableBuilder` rebuilds the screens. Widgets only present state.
+- **No extra packages:** only the Flutter SDK is used. There is no Provider, routing package, database, or API.
+
+## Design
+
+The look follows the "Kurasi Academic Minimal" design system: warm tonal surfaces, a muted sage primary color, soft 16px cards, and very few outlines. Selection is shown with an icon and a label as well as color. All styling lives in `lib/theme/app_theme.dart`.
+
+The design fonts (Epilogue and Plus Jakarta Sans) are not bundled, so the app uses the device font by default. To enable them, put the TTF files in `assets/fonts/` and uncomment the `fonts` block in `pubspec.yaml`.
+
+## Scope
+
+Kept intentionally small. Not included: filter or search, database, API, authentication, dashboards, analytics, and a success page.
