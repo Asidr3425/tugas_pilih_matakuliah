@@ -1,0 +1,33 @@
+name: tugas_pilih_matakuliah
+description: KURASI - Pilih Mata Kuliah. Tugas Flutter kecil (Card, ListView, ListTile, ListView.builder).
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Opsional: font desain (Epilogue, Plus Jakarta Sans) belum disertakan.
+  # Tanpa font ini, tema memakai font bawaan perangkat. Untuk mengaktifkan,
+  # taruh file TTF di assets/fonts/ lalu hapus tanda komentar di bawah.
+  # fonts:
+  #   - family: Epilogue
+  #     fonts:
+  #       - asset: assets/fonts/Epilogue-SemiBold.ttf
+  #         weight: 600
+  #   - family: PlusJakartaSans
+  #     fonts:
+  #       - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+  #       - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+  #         weight: 600
